@@ -1,0 +1,16 @@
+.login__form-redirect {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  line-height: auto;
+  font-weight: 400;
+}
+
+.login__form-redirect:hover{
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.login__form-redirect:active{
+  text-decoration: underline;
+}

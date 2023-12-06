@@ -1,0 +1,69 @@
+/*Подключение стилей normalize.css*/
+@import url(./vendor/normalize.css);
+/* Подключение стилей .fonts */
+/* Подключение стилей .main */
+@import url(./blocks/main/main.css);
+/* Подключение стилей .page */
+@import url(./blocks/page/page.css);
+/* Подключение стилей .header */
+@import url(./blocks/header/header.css);
+@import url(./blocks/header/__logo/header__logo.css);
+/* Подключение стилей .profile */
+@import url(./blocks/profile/profile.css);
+@import url(./blocks//profile/__avatar-container/profile__avatar-container.css);
+@import url(./blocks/profile/__avatar/profile__avatar.css);
+@import url(./blocks/profile/__flex/profile__flex.css);
+@import url(./blocks/profile/__info/profile__info.css);
+@import url(./blocks/profile/__name/profile__name.css);
+@import url(./blocks/profile/__description/profile__description.css);
+@import url(./blocks/profile/__button/profile__button.css);
+@import url(./blocks/profile/__button/_type/profile__button_type_add.css);
+@import url(./blocks/profile/__button/_type/profile__button_type_edit.css);
+@import url(./blocks/profile/__button-edit/profile__button-edit.css);
+@import url(./blocks/profile/__button-add/profile__button-add.css);
+/* Подключение стилей .elements */
+@import url(./blocks/elements/elements.css);
+/* Подключение стилей .element */
+@import url(./blocks/element/element.css);
+@import url(./blocks/element/__description/element__description.css);
+@import url(./blocks/element/__text/element__text.css);
+@import url(./blocks/element/__mask/element__mask.css);
+@import url(./blocks/element/__like/element__like.css);
+@import url(./blocks/element/__delete/element__delete.css);
+@import url(./blocks/element/__delete-icon/element__delete-icon.css);
+@import url(./blocks/element/__like/_active/element__like_active.css);
+@import url(./blocks//element/__like-container/element__like-conrainer.css);
+@import url(./blocks/element/__like-count/element__like-count.css);
+/* Подключение стилей .footer */
+@import url(./blocks/footer/footer.css);
+@import url(./blocks/footer/__text/footer__text.css);
+/* Подключение стилей .popup */
+@import url(./blocks/popup/popup.css);
+@import url(./blocks/popup/__container/popup__container.css);
+@import url(./blocks/popup/__close-button/popup__close-button.css);
+@import url(./blocks/popup/__close-icon/popup__close-icon.css);
+@import url(./blocks/popup/__label/popup__label.css);
+@import url(./blocks/popup/__form/popup__form.css);
+@import url(./blocks/popup/__input/popup__input.css);
+@import url(./blocks/popup/__button/popup__button.css);
+@import url(./blocks/popup/_opened/popup_opened.css);
+@import url(./blocks/popup/__figure/popup__figure.css);
+@import url(./blocks/popup/__photo/popup__photo.css);
+@import url(./blocks/popup/__image/popup__image.css);
+@import url(./blocks/popup/__caption/popup__caption.css);
+@import url(./blocks/popup/_overlay/popup_overlay.css);
+@import url(./blocks/popup/__error/popup__error.css);
+@import url(./blocks/popup/__button/_disabled/popup__button_disabled.css);
+@import url(./blocks/popup/__error/_visible/popup__error_visible.css);
+@import url(./blocks/popup/__input/_type/popup__input_type_error.css);
+/* Подключение стилей Login */
+@import url(./blocks/login/login.css);
+@import url(./blocks/login/__container/login__container.css);
+@import url(./blocks/login/__header/login__heder.css);
+@import url(./blocks/login/__link/login__link.css);
+@import url(./blocks/login/__form/login__form.css);
+@import url(./blocks/login/__form-title/login__form-title.css);
+@import url(./blocks/login/__form-input/login__form-input.css);
+@import url(./blocks/login/__form-button/login__form-button.css);
+@import url(./blocks/login/__form-subtitle/login__form-subtitle.css);
+@import url(./blocks/login/__form-redirect/login__form-refirect.css);

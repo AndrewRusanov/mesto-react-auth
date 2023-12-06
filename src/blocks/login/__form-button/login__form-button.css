@@ -1,0 +1,19 @@
+.login__form-button {
+    background-color: white;
+    color: black;
+    width: 100%;
+    height: 50px;
+    margin: 216px 0 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    font-size: 18px;
+    line-height: auto;
+    font-weight: 400;
+}
+
+.login__form-button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
