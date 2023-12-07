@@ -4,7 +4,7 @@ import * as auth from "../utils/Auth";
 import { useState } from "react";
 
 const Register = ({}) => {
-  const [isRegistered, setIsRegistered] = useState(false);
+  // const [isRegistered, setIsRegistered] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,9 +13,13 @@ const Register = ({}) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     auth.register(password, email).then(() => {
-      setIsRegistered(true);
+      // setIsRegistered(true);
       // TODO. Открыть попап с успешной регистрацией
       navigate("/sign-in", { replace: true });
+    }).catch((error)=>{
+      // setIsRegistered(false);
+      // TODO. Открыть попап с некорректной регистрацией
+      console.log(error);
     });
   };
 

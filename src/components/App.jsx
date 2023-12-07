@@ -189,7 +189,8 @@ function App() {
             />
             <Route
               path="/sign-up"
-              element={<Register email={email} setEmail={setEmail} />}
+              // TODO. Продумать над логикой открытия popup`а с итогом регистрации
+              element={<Register />}
             />
           </Routes>
 
