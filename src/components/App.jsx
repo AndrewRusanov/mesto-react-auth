@@ -10,10 +10,10 @@ import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import { Route, Routes } from "react-router-dom";
-import Form from "./Form";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
+import ProtectedRouteElement from "./ProtectedRoute";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -25,20 +25,22 @@ function App() {
   const [cards, setCards] = useState([]);
   const [renderLoading, setRenderLoading] = useState(false);
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   useEffect(() => {
-    Promise.all([api.getCards(), api.getUserInformation()])
-      .then(([cardsArray, userInfo]) => {
-        setCards(cardsArray);
-        setCurrentUser(userInfo);
-      })
-      .catch((err) =>
-        console.log(
-          `Ошибка загрузки карточек и/или информации о пользователе: ${err}`
-        )
-      );
-  }, []);
+    if (loggedIn) {
+      Promise.all([api.getCards(), api.getUserInformation()])
+        .then(([cardsArray, userInfo]) => {
+          setCards(cardsArray);
+          setCurrentUser(userInfo);
+        })
+        .catch((err) =>
+          console.log(
+            `Ошибка загрузки карточек и/или информации о пользователе: ${err}`
+          )
+        );
+    }
+  }, [loggedIn]);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -137,29 +139,46 @@ function App() {
           <Header />
           {/* TODO. Надо убрать потом в отдельный роут */}
           <Routes>
-            <Route path="/" element={<Main
-              onEditProfile={() => {
-                handleEditProfileClick();
-              }}
-              onAddPlace={() => {
-                handleAddPlaceClick();
-              }}
-              onEditAvatar={() => {
-                handleEditAvatarClick();
-              }}
-              onCardClick={(card) => {
-                handleCardClick(card);
-              }}
-              onCardLike={(card) => {
-                handleCardLike(card);
-              }}
-              onCardDelete={(card) => {
-                handleCardDelete(card);
-              }}
-              cards={cards}
-            />} />
-            <Route path="/sign-in" element={<Login/>} />
-            <Route path="/sign-up" element={<Register/>} />
+            <Route
+              path="/"
+              element={
+                loggedIn ? (
+                  <Navigate to="/main" replace />
+                ) : (
+                  <Navigate to="/sign-in" replace />
+                )
+              }
+            />
+            <Route
+              path="/main"
+              element={
+                <ProtectedRouteElement
+                  element={Main}
+                  onEditProfile={() => {
+                    handleEditProfileClick();
+                  }}
+                  onAddPlace={() => {
+                    handleAddPlaceClick();
+                  }}
+                  onEditAvatar={() => {
+                    handleEditAvatarClick();
+                  }}
+                  onCardClick={(card) => {
+                    handleCardClick(card);
+                  }}
+                  onCardLike={(card) => {
+                    handleCardLike(card);
+                  }}
+                  onCardDelete={(card) => {
+                    handleCardDelete(card);
+                  }}
+                  cards={cards}
+                  loggedIn={loggedIn}
+                />
+              }
+            />
+            <Route path="/sign-in" element={<Login />} />
+            <Route path="/sign-up" element={<Register />} />
           </Routes>
 
           <Footer />
