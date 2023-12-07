@@ -26,6 +26,8 @@ function App() {
   const [renderLoading, setRenderLoading] = useState(false);
 
   const [loggedIn, setLoggedIn] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (loggedIn) {
@@ -178,7 +180,17 @@ function App() {
               }
             />
             <Route path="/sign-in" element={<Login />} />
-            <Route path="/sign-up" element={<Register />} />
+            <Route
+              path="/sign-up"
+              element={
+                <Register
+                  email={email}
+                  setEmail={setEmail}
+                  password={password}
+                  setPassword={setPassword}
+                />
+              }
+            />
           </Routes>
 
           <Footer />
