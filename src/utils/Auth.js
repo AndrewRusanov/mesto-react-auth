@@ -27,3 +27,17 @@ export const authorize = (password, email) => {
     }
   });
 };
+
+export const checkToken = (token) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+  });
+};

@@ -10,10 +10,11 @@ import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRouteElement from "./ProtectedRoute";
+import * as auth from '../utils/Auth.js';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -25,8 +26,11 @@ function App() {
   const [cards, setCards] = useState([]);
   const [renderLoading, setRenderLoading] = useState(false);
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (loggedIn) {
       Promise.all([api.getCards(), api.getUserInformation()])
@@ -39,6 +43,7 @@ function App() {
             `Ошибка загрузки карточек и/или информации о пользователе: ${err}`
           )
         );
+        handleTokenCheck();
     }
   }, [loggedIn]);
 
@@ -125,6 +130,19 @@ function App() {
       });
   };
 
+  const handleTokenCheck = () => {
+    if (localStorage.getItem("jwt")) {
+      const jwt = localStorage.getItem("jwt");
+      auth.checkToken(jwt).then((res)=>{
+        if (res) {
+          setLoggedIn(true);
+          setEmail(res.data.email);
+          navigate('/main', {replace: true})
+        }
+      })
+    }
+  }
+
   const closeAllPopups = () => {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -136,7 +154,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="main">
         <div className="page">
-          <Header />
+          <Header email={email}/>
           {/* TODO. Надо убрать потом в отдельный роут */}
           <Routes>
             <Route

@@ -3,7 +3,7 @@ import Form from "./Form";
 import * as auth from "../utils/Auth";
 import { useState } from "react";
 
-const Register = ({}) => {
+const Register = () => {
   // const [isRegistered, setIsRegistered] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
