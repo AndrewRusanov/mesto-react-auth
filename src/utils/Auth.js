@@ -7,14 +7,23 @@ export const register = (password, email) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ password, email }),
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-    })
-    .then((result) => {
-      return result;
-    })
-    .catch((error) => console.log(error));
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+  });
+};
+
+export const authorize = (password, email) => {
+  return fetch(`${BASE_URL}/signin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ password, email }),
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+  });
 };

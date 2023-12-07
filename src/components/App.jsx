@@ -27,8 +27,6 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(true);
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   useEffect(() => {
     if (loggedIn) {
       Promise.all([api.getCards(), api.getUserInformation()])
@@ -179,17 +177,19 @@ function App() {
                 />
               }
             />
-            <Route path="/sign-in" element={<Login />} />
             <Route
-              path="/sign-up"
+              path="/sign-in"
               element={
-                <Register
-                  email={email}
-                  setEmail={setEmail}
-                  password={password}
-                  setPassword={setPassword}
+                <Login
+                  setLoggedIn={() => {
+                    setLoggedIn(true);
+                  }}
                 />
               }
+            />
+            <Route
+              path="/sign-up"
+              element={<Register email={email} setEmail={setEmail} />}
             />
           </Routes>
 
