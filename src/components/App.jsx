@@ -11,6 +11,9 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import { Route, Routes } from "react-router-dom";
+import Form from "./Form";
+import Login from "./Login";
+import Register from "./Register";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -132,6 +135,7 @@ function App() {
       <div className="main">
         <div className="page">
           <Header />
+          {/* TODO. Надо убрать потом в отдельный роут */}
           <Routes>
             <Route path="/" element={<Main
               onEditProfile={() => {
@@ -154,6 +158,8 @@ function App() {
               }}
               cards={cards}
             />} />
+            <Route path="/sign-in" element={<Login/>} />
+            <Route path="/sign-up" element={<Register/>} />
           </Routes>
 
           <Footer />
