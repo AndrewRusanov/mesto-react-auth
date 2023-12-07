@@ -26,7 +26,7 @@ const Login = ({ setLoggedIn }) => {
       })
       .catch((error) => console.log(error));
   };
-
+ 
   return (
     <div className="sign">
       <h1 className="sign__title">Войти</h1>

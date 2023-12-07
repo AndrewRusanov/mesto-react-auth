@@ -7,11 +7,7 @@ export const register = (password, email) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ password, email }),
-  }).then((response) => {
-    if (response.ok) {
-      return response.json();
-    }
-  });
+  })
 };
 
 export const authorize = (password, email) => {

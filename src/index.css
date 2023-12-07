@@ -66,3 +66,8 @@
 @import url(./blocks/form/form.css);
 @import url(./blocks/form/__input/form__input.css);
 @import url(./blocks/form/__button/form__button.css);
+/* Подключение стилей для .tooltip */
+@import url(./blocks/popup/__tooltip/popup__tooltip.css);
+@import url(./blocks/popup/__tooltip/_success/popup__tooltip_success.css);
+@import url(./blocks/popup/__tooltip/_failure/popup__tooltip_failure.css);
+@import url(./blocks/popup/__subtitle-tip/poup__subtitle-tip.css);

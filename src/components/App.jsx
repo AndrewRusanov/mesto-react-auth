@@ -14,7 +14,8 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRouteElement from "./ProtectedRoute";
-import * as auth from '../utils/Auth.js';
+import * as auth from "../utils/Auth.js";
+import InfoTooltip from "./InfotoolTip.jsx";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -28,6 +29,7 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -43,7 +45,7 @@ function App() {
             `Ошибка загрузки карточек и/или информации о пользователе: ${err}`
           )
         );
-        handleTokenCheck();
+      handleTokenCheck();
     }
   }, [loggedIn]);
 
@@ -55,6 +57,9 @@ function App() {
   };
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
+  };
+  const handleInfoTooltipClick = () => {
+    setIsInfoTooltipOpen(true);
   };
 
   const handleCardClick = (card) => {
@@ -133,20 +138,21 @@ function App() {
   const handleTokenCheck = () => {
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");
-      auth.checkToken(jwt).then((res)=>{
+      auth.checkToken(jwt).then((res) => {
         if (res) {
           setLoggedIn(true);
           setEmail(res.data.email);
-          navigate('/main', {replace: true})
+          navigate("/main", { replace: true });
         }
-      })
+      });
     }
-  }
+  };
 
   const closeAllPopups = () => {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
+    setIsInfoTooltipOpen(false);
     setSelectedCard(null);
   };
 
@@ -154,8 +160,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="main">
         <div className="page">
-          <Header email={email}/>
-          {/* TODO. Надо убрать потом в отдельный роут */}
+          <Header email={email} />
           <Routes>
             <Route
               path="/"
@@ -208,7 +213,15 @@ function App() {
             <Route
               path="/sign-up"
               // TODO. Продумать над логикой открытия popup`а с итогом регистрации
-              element={<Register />}
+              element={
+                <Register
+                  onInfoTooltip={() => {
+                    handleInfoTooltipClick();
+                  }}
+                  setLoggedIn={setLoggedIn}
+                  closeFunction={closeAllPopups}
+                />
+              }
             />
           </Routes>
 
@@ -241,6 +254,11 @@ function App() {
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
             isLoading={renderLoading}
+          />
+          <InfoTooltip
+            isOpen={isInfoTooltipOpen}
+            onClose={closeAllPopups}
+            loggedIn={loggedIn}
           />
         </div>
       </div>

@@ -3,8 +3,7 @@ import Form from "./Form";
 import * as auth from "../utils/Auth";
 import { useState } from "react";
 
-const Register = () => {
-  // const [isRegistered, setIsRegistered] = useState(false);
+const Register = ({ onInfoTooltip, setLoggedIn, closeFunction }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -12,15 +11,24 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    auth.register(password, email).then(() => {
-      // setIsRegistered(true);
-      // TODO. Открыть попап с успешной регистрацией
-      navigate("/sign-in", { replace: true });
-    }).catch((error)=>{
-      // setIsRegistered(false);
-      // TODO. Открыть попап с некорректной регистрацией
-      console.log(error);
-    });
+    auth
+      .register(password, email)
+      .then((response) => {
+        if (response.ok) {
+          setLoggedIn(true);
+          onInfoTooltip();
+          setTimeout(() => {
+            closeFunction();
+            navigate("/sign-in", { replace: true });
+          }, 1000);
+        } else {
+          setLoggedIn(false);
+          onInfoTooltip();
+          setTimeout(() => closeFunction(), 1000);
+          // TODO. Открыть попап с некорректной регистрацией
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
