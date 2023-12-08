@@ -43,7 +43,7 @@ const Register = ({ onInfoTooltip, setLoggedIn, closeFunction }) => {
         handleSubmit={(event) => handleSubmit(event)}
       />
       <p className="sign__subtitle">
-        Вы уже зарегистрированы?{" "}
+        Уже зарегистрированы?{" "}
         <NavLink className="sign__link-in" to="/sign-in">
           Войти
         </NavLink>

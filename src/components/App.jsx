@@ -47,7 +47,7 @@ function App() {
         );
       handleTokenCheck();
     }
-  }, [loggedIn]);
+  }, [loggedIn, email]);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -160,7 +160,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="main">
         <div className="page">
-          <Header email={email} />
+          <Header email={email} loggedIn={loggedIn}/>
           <Routes>
             <Route
               path="/"
@@ -212,7 +212,6 @@ function App() {
             />
             <Route
               path="/sign-up"
-              // TODO. Продумать над логикой открытия popup`а с итогом регистрации
               element={
                 <Register
                   onInfoTooltip={() => {
@@ -224,8 +223,7 @@ function App() {
               }
             />
           </Routes>
-
-          <Footer />
+          { loggedIn && <Footer />}
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
