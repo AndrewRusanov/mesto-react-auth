@@ -36,3 +36,5 @@
 - JSX разметка
 - хук useState
 - хук useEffect
+- хук useNavigate
+- Авторизация
