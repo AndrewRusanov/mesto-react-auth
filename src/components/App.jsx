@@ -47,7 +47,7 @@ function App() {
         );
       handleTokenCheck();
     }
-  }, [loggedIn, email]);
+  }, [loggedIn]);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
