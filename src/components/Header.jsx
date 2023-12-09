@@ -7,8 +7,6 @@ const Header = ({ email, loggedIn }) => {
   const signOut = () => {
     localStorage.removeItem("jwt");
     navigate("/sign-in", { replace: true });
-    // принудительный ре-рендер
-    window.location.reload();
   };
 
   return (
