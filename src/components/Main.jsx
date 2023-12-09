@@ -14,9 +14,7 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike
         <div className="profile__flex">
           <div
             className="profile__avatar-container"
-            onClick={() => {
-              onEditAvatar();
-            }}
+            onClick={onEditAvatar}
           >
             <img className="profile__avatar" src={currentUser.avatar} alt="Аватар профиля" />
           </div>
@@ -25,9 +23,7 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike
             <button
               type="button"
               className="profile__button profile__button_type_edit"
-              onClick={() => {
-                onEditProfile();
-              }}
+              onClick={onEditProfile}
             >
               <img className="profile__button-edit" src={editButton} alt="Конпка редактирования" />
             </button>
@@ -37,9 +33,7 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike
         <button
           type="button"
           className="profile__button profile__button_type_add"
-          onClick={() => {
-            onAddPlace();
-          }}
+          onClick={onAddPlace}
         >
           <img
             className="profile__button-add"
@@ -53,11 +47,9 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike
           return (
             <Card
               card={card}
-              onCardClick={cardItem => {
-                onCardClick(cardItem);
-              }}
-              onCardLike = {(card) => {onCardLike(card)}}
-              onCardDelete = { (cardId) => {onCardDelete(cardId)}}
+              onCardClick={onCardClick}
+              onCardLike = {onCardLike}
+              onCardDelete = {onCardDelete}
               key={card._id}
             />
           );
