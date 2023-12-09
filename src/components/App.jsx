@@ -47,7 +47,7 @@ function App() {
         );
     }
   }, [loggedIn]);
-  useEffect(()=>handleTokenCheck(), [])
+  useEffect(() => handleTokenCheck(), []);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -150,10 +150,24 @@ function App() {
         .catch((error) => console.log(`Ошибка проверки токена: ${error}`));
     }
   };
-  
+
+  const handleLogin = (email, password) => {
+    auth
+      .authorize(password, email)
+      .then((result) => {
+        if (result) {
+          localStorage.setItem("jwt", result.token);
+          setEmail(email);
+          setLoggedIn(true);
+          navigate("/", { replace: true });
+        }
+      })
+      .catch((error) => console.log(`Ошибка входа: ${error}`));
+  };
+
   const handleSignOut = () => {
     localStorage.removeItem("jwt");
-    setEmail('');
+    setEmail("");
     navigate("/sign-in", { replace: true });
   };
 
@@ -197,16 +211,7 @@ function App() {
                 />
               }
             />
-            <Route
-              path="/sign-in"
-              element={
-                <Login
-                  setLoggedIn={() => {
-                    setLoggedIn(true);
-                  }}
-                />
-              }
-            />
+            <Route path="/sign-in" element={<Login login={handleLogin} />} />
             <Route
               path="/sign-up"
               element={
@@ -233,10 +238,7 @@ function App() {
             onAddPlace={handleAddPlace}
             isLoading={renderLoading}
           />
-          <ImagePopup
-            card={selectedCard}
-            onClose={closeAllPopups}
-          />
+          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           <PopupWithForm
             title="Вы уверены?"
             name="deleteCard"
