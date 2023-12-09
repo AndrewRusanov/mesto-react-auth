@@ -1,13 +1,7 @@
-import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
+import { NavLink, Route, Routes } from "react-router-dom";
 import logo from "../images/header__logo.svg";
 
-const Header = ({ email, loggedIn }) => {
-  const navigate = useNavigate();
-
-  const signOut = () => {
-    localStorage.removeItem("jwt");
-    navigate("/sign-in", { replace: true });
-  };
+const Header = ({ email, signOut, loggedIn }) => {
 
   return (
     <header className="header">

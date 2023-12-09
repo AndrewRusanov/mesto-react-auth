@@ -13,22 +13,20 @@ const Register = ({ onInfoTooltip, setLoggedIn, closeFunction }) => {
     event.preventDefault();
     auth
       .register(password, email)
-      .then((response) => {
-        if (response.ok) {
-          setLoggedIn(true);
-          onInfoTooltip();
-          setTimeout(() => {
-            closeFunction();
-            navigate("/sign-in", { replace: true });
-          }, 1000);
-        } else {
-          setLoggedIn(false);
-          onInfoTooltip();
-          setTimeout(() => closeFunction(), 1000);
-          // TODO. Открыть попап с некорректной регистрацией
-        }
+      .then(() => {
+        setLoggedIn(true);
+        setTimeout(() => {
+          closeFunction();
+          navigate("/sign-in", { replace: true });
+        }, 1000);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setLoggedIn(false);
+        onInfoTooltip();
+        setTimeout(() => closeFunction(), 1000);
+      })
+      .finally(() => onInfoTooltip());
   };
 
   return (
@@ -40,7 +38,7 @@ const Register = ({ onInfoTooltip, setLoggedIn, closeFunction }) => {
         setEmail={setEmail}
         password={password}
         setPassword={setPassword}
-        handleSubmit={(event) => handleSubmit(event)}
+        handleSubmit={handleSubmit}
       />
       <p className="sign__subtitle">
         Уже зарегистрированы?{" "}

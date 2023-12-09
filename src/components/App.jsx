@@ -45,9 +45,9 @@ function App() {
             `Ошибка загрузки карточек и/или информации о пользователе: ${err}`
           )
         );
-      handleTokenCheck();
     }
   }, [loggedIn]);
+  useEffect(()=>handleTokenCheck(), [])
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -144,11 +144,17 @@ function App() {
           if (res) {
             setLoggedIn(true);
             setEmail(res.data.email);
-            navigate("/main", { replace: true });
+            navigate("/", { replace: true });
           }
         })
         .catch((error) => console.log(`Ошибка проверки токена: ${error}`));
     }
+  };
+  
+  const handleSignOut = () => {
+    localStorage.removeItem("jwt");
+    setEmail('');
+    navigate("/sign-in", { replace: true });
   };
 
   const closeAllPopups = () => {
@@ -163,7 +169,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="main">
         <div className="page">
-          <Header email={email} loggedIn={loggedIn} />
+          <Header email={email} signOut={handleSignOut} loggedIn={loggedIn} />
           <Routes>
             <Route
               path="/"
