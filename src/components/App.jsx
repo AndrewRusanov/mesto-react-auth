@@ -138,13 +138,16 @@ function App() {
   const handleTokenCheck = () => {
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");
-      auth.checkToken(jwt).then((res) => {
-        if (res) {
-          setLoggedIn(true);
-          setEmail(res.data.email);
-          navigate("/main", { replace: true });
-        }
-      });
+      auth
+        .checkToken(jwt)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setEmail(res.data.email);
+            navigate("/main", { replace: true });
+          }
+        })
+        .catch((error) => console.log(`Ошибка проверки токена: ${error}`));
     }
   };
 
@@ -160,7 +163,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="main">
         <div className="page">
-          <Header email={email} loggedIn={loggedIn}/>
+          <Header email={email} loggedIn={loggedIn} />
           <Routes>
             <Route
               path="/"
@@ -177,24 +180,12 @@ function App() {
               element={
                 <ProtectedRouteElement
                   element={Main}
-                  onEditProfile={() => {
-                    handleEditProfileClick();
-                  }}
-                  onAddPlace={() => {
-                    handleAddPlaceClick();
-                  }}
-                  onEditAvatar={() => {
-                    handleEditAvatarClick();
-                  }}
-                  onCardClick={(card) => {
-                    handleCardClick(card);
-                  }}
-                  onCardLike={(card) => {
-                    handleCardLike(card);
-                  }}
-                  onCardDelete={(card) => {
-                    handleCardDelete(card);
-                  }}
+                  onEditProfile={handleEditProfileClick}
+                  onAddPlace={handleAddPlaceClick}
+                  onEditAvatar={handleEditAvatarClick}
+                  onCardClick={handleCardClick}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
                   cards={cards}
                   loggedIn={loggedIn}
                 />
@@ -223,7 +214,7 @@ function App() {
               }
             />
           </Routes>
-          { loggedIn && <Footer />}
+          {loggedIn && <Footer />}
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
@@ -238,9 +229,7 @@ function App() {
           />
           <ImagePopup
             card={selectedCard}
-            onClose={() => {
-              closeAllPopups();
-            }}
+            onClose={closeAllPopups}
           />
           <PopupWithForm
             title="Вы уверены?"
